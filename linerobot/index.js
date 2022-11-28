@@ -7,7 +7,10 @@ import japan from './utils/japan.js'
 import korean from './utils/korean.js'
 import Vietnam from './utils/Vietnam.js'
 import taiwan from './utils/taiwan.js'
+import express from express
 
+
+const app = express()
 
 
 const bot = linebot({
@@ -80,6 +83,11 @@ bot.on('message', event => {
   }
 })
 
+const linebotParser = bot.parser()
+app.post('/', linebotParser)
+app.get('/', (req, res) => {
+  res.status(200).send('ok')
+})
 bot.listen('/', process.env.PORT || 3000, () => {
   console.log('機器人啟動')
 })
